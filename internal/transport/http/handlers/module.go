@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	"humoAkademy/internal/service"
+	"humoAcademy/internal/service"
 
 	"github.com/sirupsen/logrus"
 )

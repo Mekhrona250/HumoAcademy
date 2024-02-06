@@ -1,8 +1,8 @@
 package service
 
 import (
-	"humoAkademy/internal/models"
-	"humoAkademy/pkg/errors"
+	"humoAcademy/internal/models"
+	"humoAcademy/pkg/errors"
 )
 
 func (s *Service) Registration(user models.User) (err error) {

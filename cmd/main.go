@@ -1,15 +1,15 @@
 package main
 
 import (
-	"humoAkademy/internal/repository"
-	"humoAkademy/internal/service"
-	"humoAkademy/internal/transport/http/handlers"
-	"humoAkademy/internal/transport/http/middleware"
-	"humoAkademy/internal/transport/http/router"
-	"humoAkademy/pkg/config"
-	"humoAkademy/pkg/database"
-	"humoAkademy/pkg/http"
-	"humoAkademy/pkg/logger"
+	"humoAcademy/internal/repository"
+	"humoAcademy/internal/service"
+	"humoAcademy/internal/transport/http/handlers"
+	"humoAcademy/internal/transport/http/middleware"
+	"humoAcademy/internal/transport/http/router"
+	"humoAcademy/pkg/config"
+	"humoAcademy/pkg/database"
+	"humoAcademy/pkg/http"
+	"humoAcademy/pkg/logger"
 )
 
 func main() {

@@ -2,7 +2,7 @@ package repository
 
 import (
 	"context"
-	"humoAkademy/internal/models"
+	"humoAcademy/internal/models"
 
 	"github.com/sirupsen/logrus"
 )

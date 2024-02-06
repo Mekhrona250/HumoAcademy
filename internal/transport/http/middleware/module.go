@@ -1,8 +1,8 @@
 package middleware
 
 import (
-	"humoAkademy/internal/service"
-	"humoAkademy/pkg/config"
+	"humoAcademy/internal/service"
+	"humoAcademy/pkg/config"
 	"net/http"
 )
 
@@ -13,7 +13,7 @@ type Middleware struct {
 
 type MiddlewareInterface interface {
 	TimeDuration(next http.Handler) http.Handler
-	// JWT(next http.Handler) http.Handler
+	JWT(next http.Handler) http.Handler
 }
 
 func NewMiddleware(config *config.Config, svc service.ServiceInterface) MiddlewareInterface {

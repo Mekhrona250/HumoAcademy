@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"humoAkademy/internal/models"
+	"humoAcademy/internal/models"
 
 	"github.com/jackc/pgx/v5"
 	"github.com/sirupsen/logrus"
@@ -17,6 +17,8 @@ type RepositoryInterface interface {
 	GetUserByPhone(phone string) (user models.User, err error)
 	CreateCourse(course models.Course) (err error)
 	GetCourseById(courseId int) (course models.Course, err error)
+	CheckUserById(userID int) (err error)
+	GetCoursesName(courseId int) (course models.Course, err error)
 }
 
 func NewRepository(conn *pgx.Conn, logger *logrus.Logger) RepositoryInterface {

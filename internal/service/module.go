@@ -1,9 +1,9 @@
 package service
 
 import (
-	"humoAkademy/internal/repository"
-	"humoAkademy/pkg/config"
-	"humoAkademy/internal/models"
+	"humoAcademy/internal/models"
+	"humoAcademy/internal/repository"
+	"humoAcademy/pkg/config"
 
 	"github.com/sirupsen/logrus"
 )
@@ -17,6 +17,8 @@ type Service struct {
 type ServiceInterface interface {
 	Registration(user models.User) (err error)
 	Login(user models.User) (accessToken string, err error)
+	CheckUserById(userID int) (err error)
+	CreateCourse(course models.Course) (err error)
 }
 
 func NewService(repo repository.RepositoryInterface, config *config.Config, logger *logrus.Logger) ServiceInterface {

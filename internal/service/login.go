@@ -1,9 +1,9 @@
 package service
 
 import (
-	"humoAkademy/internal/models"
-	"humoAkademy/pkg/errors"
-	"humoAkademy/pkg/utils"
+	"humoAcademy/internal/models"
+	"humoAcademy/pkg/errors"
+	"humoAcademy/pkg/utils"
 )
 
 func (s *Service) Login(user models.User) (accessToken string, err error) {

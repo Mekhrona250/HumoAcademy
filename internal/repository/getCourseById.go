@@ -2,15 +2,15 @@ package repository
 
 import (
 	"context"
-	"humoAkademy/internal/models"
-	"humoAkademy/pkg/errors"
+	"humoAcademy/internal/models"
+	"humoAcademy/pkg/errors"
 
 	"github.com/jackc/pgx/v5"
 	"github.com/sirupsen/logrus"
 )
 
 func (repo *Repository) GetCourseById(courseId int) (course models.Course, err error) {
-	row := repo.Conn.QueryRow(context.Background(), `
+	rows, err := repo.Conn.Query(context.Background(), `
 			SELECT
 				id, 
 				name, 
@@ -18,19 +18,18 @@ func (repo *Repository) GetCourseById(courseId int) (course models.Course, err e
 				duration,
 				schedule,
 				age_limit,
+				registration_end_date,
 				address,
 				description,
 				mentor,
 				format,
 				language
 			FROM 
-				users 
+				course 
 			WHERE 
-				id = $1 
-			AND
-				registration_end_date > now()`, courseId) 
+				id = $1 `, courseId) 
 
-	err = row.Scan(
+	err = rows.Scan(
 		&course.Id,
 		&course.Name,
 		&course.StartDate,

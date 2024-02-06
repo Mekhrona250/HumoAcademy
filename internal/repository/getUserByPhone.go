@@ -2,8 +2,8 @@ package repository
 
 import (
 	"context"
-	"humoAkademy/internal/models"
-	"humoAkademy/pkg/errors"
+	"humoAcademy/internal/models"
+	"humoAcademy/pkg/errors"
 
 	"github.com/jackc/pgx/v5"
 	"github.com/sirupsen/logrus"

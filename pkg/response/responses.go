@@ -24,3 +24,9 @@ var Unauthorized = Response{
 	Code:    401,
 	Message: "Unauthorized",
 }
+
+
+var AccessDenied = Response{
+	Code:    403,
+	Message: "Access Denied",
+}

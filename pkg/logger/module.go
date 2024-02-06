@@ -1,7 +1,7 @@
 package logger
 
 import (
-	"humoAkademy/pkg/config"
+	"humoAcademy/pkg/config"
 	"io"
 	"os"
 
