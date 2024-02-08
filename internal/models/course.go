@@ -3,7 +3,7 @@ package models
 import "time"
 
 type Course struct {
-	Id                  int       `json:"id"`
+	ID                  int       `json:"id"`
 	Name                string    `json:"name"`
 	StartDate           time.Time `json:"start_date"`
 	Duration            int       `json:"duration"`

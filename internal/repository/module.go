@@ -15,10 +15,13 @@ type Repository struct {
 type RepositoryInterface interface {
 	CreateUser(user models.User) (err error)
 	GetUserByPhone(phone string) (user models.User, err error)
+	GetUserByID(userID int) (user models.User, err error)
 	CreateCourse(course models.Course) (err error)
-	GetCourseById(courseId int) (course models.Course, err error)
 	CheckUserById(userID int) (err error)
-	GetCoursesName(courseId int) (course models.Course, err error)
+	GetManyCourses() (courses []models.Course, err error)
+	DeleteCourseByID(courseID int) (err error)
+	AddApplication(userID , courseID int) (err error) 
+	GetCourseByID(courseID int) (course models.Course, err error)
 }
 
 func NewRepository(conn *pgx.Conn, logger *logrus.Logger) RepositoryInterface {

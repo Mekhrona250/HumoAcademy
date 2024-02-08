@@ -9,7 +9,7 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-func (repo *Repository) GetUserByPhone(phone string) (user models.User, err error) {
+func (repo *Repository) GetUserByID(userID int) (user models.User, err error) {
 	row := repo.Conn.QueryRow(context.Background(), `
 			SELECT 
 				id, 
@@ -22,15 +22,15 @@ func (repo *Repository) GetUserByPhone(phone string) (user models.User, err erro
 			FROM 
 				users 
 			WHERE 
-				phone_number = $1`, phone)
+				id = $1`, userID)
 
 	err = row.Scan(
-		&user.ID, 
-		&user.PhoneNumber, 
-		&user.Password, 
-		&user.Name, 
-		&user.Surname, 
-		&user.RoleId, 
+		&user.ID,
+		&user.PhoneNumber,
+		&user.Password,
+		&user.Name,
+		&user.Surname,
+		&user.RoleId,
 		&user.DateOfBirth,
 	)
 
@@ -40,9 +40,9 @@ func (repo *Repository) GetUserByPhone(phone string) (user models.User, err erro
 		}
 
 		repo.Logger.WithFields(logrus.Fields{
-			"phone": phone,
-			"err":   err,
-		}).Error("error in repo, GetUserByPhone")
+			"user_id": userID,
+			"err":     err,
+		}).Error("error in repo, GetUserByID")
 	}
 
 	return

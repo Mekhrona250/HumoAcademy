@@ -20,7 +20,15 @@ func InitRouter(handlers *handlers.Handler, mw middleware.MiddlewareInterface) *
 
 	router.HandleFunc("/api/registration", handlers.Registration).Methods("POST")
 	router.HandleFunc("/api/login", handlers.Login).Methods("POST")
-	router.HandleFunc("/api/login", handlers.CreateCourse).Methods("POST")
+
+	//clients
+	router.HandleFunc("/api/courseRegister", handlers.CourseRegister).Methods("POST")
+
+	//administrator
+	router.HandleFunc("/api/createCourse", handlers.CreateCourse).Methods("POST")
+
+	privateRouter.Use(mw.JWT)
+	privateRouter.HandleFunc("/api/deleteCourse", handlers.DeleteCourse).Methods("POST")
 
 	return router
 }

@@ -5,10 +5,24 @@ import (
 	"humoAcademy/pkg/errors"
 )
 
-func (s *Service) CreateCourse(course models.Course) (err error) {
-	var user models.User
+func (s *Service) CreateCourse(course models.Course, userID int) (err error) {
+	
+	user, err := s.Repo.GetUserByID(userID)
+
+	if err != errors.ErrDataNotFound {
+		if err == nil {
+			return errors.ErrAlreadyHasCourse
+		}
+
+		return
+	}
 
 	if user.RoleId != 1 {
+		err = errors.ErrAccessDenied
+		return
+	}
+
+	if course.Duration < 1 {
 		err = errors.ErrAccessDenied
 		return
 	}

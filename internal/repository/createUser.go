@@ -14,17 +14,17 @@ func (repo *Repository) CreateUser(user models.User) (err error) {
 			password,
 			name,
 			surname,
-			role_id,
-			date_of_birth
+			date_of_birth,
+			role_id
 		) VALUES(
 			$1,
 			$2,
 			$3,
 			$4,
 			$5,
-			$6
+			2
 		)
-	`, user.PhoneNumber, user.Password, user.Name, user.Surname, user.RoleId, user.DateOfBirth)
+	`, user.PhoneNumber, user.Password, user.Name, user.Surname, user.DateOfBirth)
 
 	if err != nil {
 		repo.Logger.WithFields(logrus.Fields{

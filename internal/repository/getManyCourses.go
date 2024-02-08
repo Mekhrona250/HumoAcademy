@@ -4,22 +4,25 @@ import (
 	"context"
 	"humoAcademy/internal/models"
 	"humoAcademy/pkg/errors"
+	"log"
 
 	"github.com/jackc/pgx/v5"
 	"github.com/sirupsen/logrus"
 )
 
-func (repo *Repository) GetCourseByname(age int) (course models.Course, err error) {
+func (repo *Repository) GetManyCourses() (courses []models.Course, err error) {
 	rows, err := repo.Conn.Query(context.Background(), `
 			SELECT
-				name
+				id,
+				name,
+				schedule,
+				format
 			FROM 
 				course 
 			WHERE 
-				age > age_limit `)
+				registration_end_date > now() `)
 
-
-	courseArray := models.Course{}
+	courses = make([]models.Course, 0)
 
 	if err != nil {
 		if err == pgx.ErrNoRows {
@@ -30,15 +33,16 @@ func (repo *Repository) GetCourseByname(age int) (course models.Course, err erro
 	defer rows.Close()
 
 	for rows.Next() {
-		err := rows.Scan(&courseArray.Name)
+		var course models.Course
+
+		err := rows.Scan(&course.ID, &course.Name, &course.Schedule, &course.Format)
+
 		if err != nil {
-			if err == pgx.ErrNoRows {
-				err = errors.ErrDataNotFound
-			}
+			log.Fatal(err)
 		}
 
+		courses = append(courses, course)
 	}
-
 
 	if err != nil {
 		if err == pgx.ErrNoRows {
@@ -46,9 +50,8 @@ func (repo *Repository) GetCourseByname(age int) (course models.Course, err erro
 		}
 
 		repo.Logger.WithFields(logrus.Fields{
-			"age": age,
-			"err":       err,
-		}).Error("error in repo, GetCourseByName")
+			"err": err,
+		}).Error("error in repo, GetManyCourses")
 	}
 
 	return

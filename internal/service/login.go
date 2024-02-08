@@ -23,7 +23,7 @@ func (s *Service) Login(user models.User) (accessToken string, err error) {
 		return
 	}
 
-	accessToken, err = utils.CreateToken(s.Config.JwtSecretKey, userFromDB.PhoneNumber, userFromDB.Id)
+	accessToken, err = utils.CreateToken(s.Config.JwtSecretKey, userFromDB.PhoneNumber, userFromDB.ID)
 
 	return
 }
