@@ -21,6 +21,9 @@ type ServiceInterface interface {
 	CreateCourse(course models.Course, userID int) (err error)
 	DeleteCourseByID(courseID, userID int) (err error)
 	CourseRegister(userID, courseID int) (err error)
+	GetListOfCourses() (courses []models.Course, err error)
+	GetCourseByID(courseID int) (course models.Course, err error)
+	ChangeCourse(course models.Course, userID int) (err error)
 }
 
 func NewService(repo repository.RepositoryInterface, config *config.Config, logger *logrus.Logger) ServiceInterface {

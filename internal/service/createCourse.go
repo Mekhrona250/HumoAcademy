@@ -9,8 +9,8 @@ func (s *Service) CreateCourse(course models.Course, userID int) (err error) {
 	
 	user, err := s.Repo.GetUserByID(userID)
 
-	if err != errors.ErrDataNotFound {
-		if err == nil {
+	if err == errors.ErrDataNotFound {
+		if err != nil {
 			return errors.ErrAlreadyHasCourse
 		}
 

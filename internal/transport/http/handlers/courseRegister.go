@@ -1,11 +1,12 @@
 package handlers
 
 import (
-	"encoding/json"
-	"humoAcademy/internal/models"
 	"humoAcademy/pkg/errors"
 	"humoAcademy/pkg/response"
 	"net/http"
+	"strconv"
+
+	"github.com/gorilla/context"
 )
 
 func (h *Handler) CourseRegister(w http.ResponseWriter, r *http.Request) {
@@ -13,20 +14,23 @@ func (h *Handler) CourseRegister(w http.ResponseWriter, r *http.Request) {
 
 	defer resp.WriteJSON(w)
 
-	var inputData models.User
-	var course models.Course
+	course := r.URL.Query().Get("courseID")
 
-	err := json.NewDecoder(r.Body).Decode(&inputData)
+	userID, ok := context.Get(r, "userID").(int)
 
-	if err != nil {
-		resp = response.BadRequest
+	if !ok {
+		resp = response.InternalServer
 		return
 	}
 
-	err = h.svc.CourseRegister(inputData.ID, course.ID)
+	courseID, err := strconv.Atoi(course)
+	if err != nil {
+		resp = response.BadRequest
+	}
+	err = h.svc.CourseRegister(userID, courseID)
 
 	if err != nil {
-		if err == errors.ErrAlreadyHasUser {
+		if err == errors.ErrAlreadyHasCourse {
 			resp.Code = 409
 			resp.Message = err.Error()
 			return

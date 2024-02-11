@@ -80,9 +80,7 @@ func (mw *Middleware) JWT(next http.Handler) http.Handler {
 			return
 		}
 
-	
-
-		context.Set(r, "userID", userID)
+		context.Set(r, "userID", int(userID))
 		next.ServeHTTP(w, r)
 	})
 }

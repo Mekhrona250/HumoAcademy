@@ -31,7 +31,19 @@ func (repo *Repository) GetCourseByID(courseID int) (course models.Course, err e
 	AND
 		id = $1`, courseID)
 
-	err = row.Scan(&course.ID)
+	err = row.Scan(&course.ID,
+		&course.Name,
+		&course.StartDate,
+		&course.Duration,
+		&course.Schedule,
+		&course.AgeLimit,
+		&course.RegistrationEndDate,
+		&course.Address,
+		&course.Description,
+		&course.Mentor,
+		&course.Format,
+		&course.Language,
+	)
 
 	if err != nil {
 		if err == pgx.ErrNoRows {

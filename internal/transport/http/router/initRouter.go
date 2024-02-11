@@ -22,13 +22,20 @@ func InitRouter(handlers *handlers.Handler, mw middleware.MiddlewareInterface) *
 	router.HandleFunc("/api/login", handlers.Login).Methods("POST")
 
 	//clients
-	router.HandleFunc("/api/courseRegister", handlers.CourseRegister).Methods("POST")
+	privateRouter.Use(mw.JWT)
+	privateRouter.HandleFunc("/api/courseRegister", handlers.CourseRegister).Methods("POST")
+	router.HandleFunc("/api/getListOfCourses", handlers.GetListOfCourses).Methods("GET")
+	router.HandleFunc("/api/getCourseByID", handlers.GetCourseByID).Methods("GET")
 
 	//administrator
-	router.HandleFunc("/api/createCourse", handlers.CreateCourse).Methods("POST")
+	privateRouter.Use(mw.JWT)
+	privateRouter.HandleFunc("/api/createCourse", handlers.CreateCourse).Methods("POST")
 
 	privateRouter.Use(mw.JWT)
 	privateRouter.HandleFunc("/api/deleteCourse", handlers.DeleteCourse).Methods("POST")
+
+	privateRouter.Use(mw.JWT)
+	privateRouter.HandleFunc("/api/changeCourse", handlers.ChangeCourse).Methods("POST")
 
 	return router
 }

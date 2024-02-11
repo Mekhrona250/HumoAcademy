@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"encoding/json"
-	"fmt"
 	"humoAcademy/internal/models"
 	"humoAcademy/pkg/errors"
 	"humoAcademy/pkg/response"
@@ -31,11 +30,9 @@ func (h *Handler) Registration(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	
-
 	dateOfBirth, err := time.Parse("2006-01-02",temp.DateOfBirth)
 	if err != nil {
-		fmt.Println(err)
+		resp = response.BadRequest
 	}
 
 	inputData = models.User{

@@ -34,7 +34,7 @@ func (repo *Repository) CreateCourse(course models.Course) (err error) {
 			$10,
 			$11
 		)
-	`, &course.Name, &course.StartDate, &course.Duration, &course.Schedule, &course.AgeLimit, &course.Address, &course.Description, &course.Mentor, &course.Format, &course.Language)
+	`,course.Name, course.StartDate, course.Duration, course.Schedule, course.AgeLimit, course.RegistrationEndDate, course.Address, course.Description, course.Mentor, course.Format, course.Language)
 
 	if err != nil {
 		repo.Logger.WithFields(logrus.Fields{

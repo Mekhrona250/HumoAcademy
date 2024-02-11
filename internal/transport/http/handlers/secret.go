@@ -14,7 +14,7 @@ func (h *Handler) Secret(w http.ResponseWriter, r *http.Request) {
 
 	resp = response.Success
 
-	userID, ok := context.Get(r, "userID").(float64)
+	userID, ok := context.Get(r, "userID").(int)
 
 	if !ok {
 		resp = response.InternalServer

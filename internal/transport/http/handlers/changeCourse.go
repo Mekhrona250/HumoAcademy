@@ -11,7 +11,7 @@ import (
 	"github.com/gorilla/context"
 )
 
-func (h *Handler) CreateCourse(w http.ResponseWriter, r *http.Request) {
+func (h *Handler) ChangeCourse(w http.ResponseWriter, r *http.Request) {
 	temp := struct {
 		models.Course
 		StartDate           string `json:"start_date"`
@@ -48,6 +48,7 @@ func (h *Handler) CreateCourse(w http.ResponseWriter, r *http.Request) {
 	}
 
 	inputData = models.Course{
+		ID:                  temp.ID,
 		Name:                temp.Name,
 		StartDate:           StartDate,
 		Duration:            temp.Duration,
@@ -61,7 +62,7 @@ func (h *Handler) CreateCourse(w http.ResponseWriter, r *http.Request) {
 		Language:            temp.Language,
 	}
 
-	err = h.svc.CreateCourse(inputData, userID)
+	err = h.svc.ChangeCourse(inputData, userID)
 
 	if err != nil {
 		log.Println(err)
