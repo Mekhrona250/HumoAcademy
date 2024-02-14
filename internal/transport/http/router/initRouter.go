@@ -15,16 +15,15 @@ func InitRouter(handlers *handlers.Handler, mw middleware.MiddlewareInterface) *
 	privateRouter := router.NewRoute().Subrouter()
 	// fs := net_http.FileServer(net_http.Dir("../files/"))
 
-	privateRouter.Use(mw.JWT)
-	privateRouter.HandleFunc("/api/secret", handlers.Secret).Methods("POST", "GET")
-
 	router.HandleFunc("/api/registration", handlers.Registration).Methods("POST")
 	router.HandleFunc("/api/login", handlers.Login).Methods("POST")
 
 	//clients
 	privateRouter.Use(mw.JWT)
 	privateRouter.HandleFunc("/api/courseRegister", handlers.CourseRegister).Methods("POST")
+
 	router.HandleFunc("/api/getListOfCourses", handlers.GetListOfCourses).Methods("GET")
+
 	router.HandleFunc("/api/getCourseByID", handlers.GetCourseByID).Methods("GET")
 
 	//administrator

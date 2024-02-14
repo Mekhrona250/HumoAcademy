@@ -21,7 +21,7 @@ func (h *Handler) GetCourseByID(w http.ResponseWriter, r *http.Request) {
 	courseByID, err := h.svc.GetCourseByID(courseID)
 
 	if err != nil {
-		resp = response.InternalServer
+		resp = response.NotFound
 		return
 	}
 

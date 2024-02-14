@@ -6,6 +6,7 @@ import (
 	"humoAcademy/pkg/response"
 	"log"
 	"net/http"
+	"strconv"
 	"time"
 
 	"github.com/gorilla/context"
@@ -23,6 +24,7 @@ func (h *Handler) ChangeCourse(w http.ResponseWriter, r *http.Request) {
 
 	var inputData models.Course
 
+	course := r.URL.Query().Get("courseID")
 	userID, ok := context.Get(r, "userID").(int)
 
 	if !ok {
@@ -30,7 +32,12 @@ func (h *Handler) ChangeCourse(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err := json.NewDecoder(r.Body).Decode(&temp)
+	courseID, err := strconv.Atoi(course)
+	if err != nil {
+		resp = response.BadRequest
+	}
+
+	err = json.NewDecoder(r.Body).Decode(&temp)
 
 	if err != nil {
 		resp = response.BadRequest
@@ -62,7 +69,7 @@ func (h *Handler) ChangeCourse(w http.ResponseWriter, r *http.Request) {
 		Language:            temp.Language,
 	}
 
-	err = h.svc.ChangeCourse(inputData, userID)
+	err = h.svc.ChangeCourse(inputData, userID, courseID)
 
 	if err != nil {
 		log.Println(err)

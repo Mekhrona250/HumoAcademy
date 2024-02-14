@@ -34,13 +34,5 @@ CREATE TABLE application(
     course_id SERIAL REFERENCES course NOT NULL
 );
 
-INSERT INTO role()
-INSERT INTO users(phone_number, password, name, surname, role_id, date_of_birth) VALUES(
-			$1,
-			$2,
-			$3,
-			$4,
-			$5,
-			$6
-		)
+
 

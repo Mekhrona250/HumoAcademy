@@ -11,9 +11,7 @@ import (
 
 func (h *Handler) Registration(w http.ResponseWriter, r *http.Request) {
 	temp := struct {
-		// use embedding
 		models.User
-		// use string representation of DateOfBirth
 		DateOfBirth string `json:"date_of_birth"`
 	}{}
 

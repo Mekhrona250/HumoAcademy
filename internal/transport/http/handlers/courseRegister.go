@@ -30,8 +30,8 @@ func (h *Handler) CourseRegister(w http.ResponseWriter, r *http.Request) {
 	err = h.svc.CourseRegister(userID, courseID)
 
 	if err != nil {
-		if err == errors.ErrAlreadyHasCourse {
-			resp.Code = 409
+		if err == errors.ErrAccessDenied {
+			resp.Code = 403
 			resp.Message = err.Error()
 			return
 		}

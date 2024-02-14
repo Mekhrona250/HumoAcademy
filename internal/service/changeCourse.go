@@ -5,7 +5,7 @@ import (
 	"humoAcademy/pkg/errors"
 )
 
-func (s *Service) ChangeCourse(course models.Course, userID int) (err error) {
+func (s *Service) ChangeCourse(course models.Course, userID int, courseID int) (err error) {
 	user, err := s.Repo.GetUserByID(userID)
 
 	if err != nil {
@@ -17,7 +17,7 @@ func (s *Service) ChangeCourse(course models.Course, userID int) (err error) {
 		return
 	}
 
-	err = s.Repo.ChangeCourse(course)
+	err = s.Repo.ChangeCourse(course, courseID)
 
 	return
 }

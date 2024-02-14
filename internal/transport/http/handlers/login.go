@@ -27,16 +27,18 @@ func (h *Handler) Login(w http.ResponseWriter, r *http.Request) {
 
 	if err == errors.ErrDataNotFound {
 		resp = response.NotFound
-
 		return
 	} else if err == errors.ErrWrongPassword {
 		resp.Code = 403
 		resp.Message = "Wrong Password"
+		return
 	} else if err == errors.ErrIncorrectPhoneNumber {
 		resp.Code = 400
 		resp.Message = "Incorrect phone number"
+		return
 	} else if err != nil {
 		resp = response.InternalServer
+		return
 	}
 
 	resp = response.Success

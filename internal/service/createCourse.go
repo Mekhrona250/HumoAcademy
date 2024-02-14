@@ -21,8 +21,8 @@ func (s *Service) CreateCourse(course models.Course, userID int) (err error) {
 		err = errors.ErrAccessDenied
 		return
 	}
-
-	if course.Duration < 1 {
+ 
+	if course.Duration < 1 || course.AgeLimit < 1 {
 		err = errors.ErrAccessDenied
 		return
 	}

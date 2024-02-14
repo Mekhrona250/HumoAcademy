@@ -9,4 +9,5 @@ var (
 	ErrWrongPassword        = errors.New("неправильный пароль")
 	ErrAccessDenied         = errors.New("доступ запрещен")
 	ErrAlreadyHasCourse		= errors.New("такой курс уже существует с таким айди")
+	
 )
