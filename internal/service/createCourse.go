@@ -6,7 +6,7 @@ import (
 )
 
 func (s *Service) CreateCourse(course models.Course, userID int) (err error) {
-	
+
 	user, err := s.Repo.GetUserByID(userID)
 
 	if err == errors.ErrDataNotFound {
@@ -21,10 +21,11 @@ func (s *Service) CreateCourse(course models.Course, userID int) (err error) {
 		err = errors.ErrAccessDenied
 		return
 	}
- 
-	if course.Duration < 1 || course.AgeLimit < 1 {
-		err = errors.ErrAccessDenied
+
+	if course.Duration < 1 || course.AgeLimit < 1 || course.Name == "" || course.StartDate.IsZero() || course.Schedule == "" || course.RegistrationEndDate.IsZero() || course.Address == "" || course.Mentor == "" {
+		err = errors.ErrBadRequest
 		return
+
 	}
 
 	err = s.Repo.CreateCourse(course)

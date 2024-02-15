@@ -50,7 +50,7 @@ func (repo *Repository) GetAllApplicationsByCourseID(courseID int) (applications
 		repo.Logger.WithFields(logrus.Fields{
 			"course_id": courseID,
 			"err": err,
-		}).Error("error in repo, GetAllCoursesByID")
+		}).Error("error in repo, GetAllApplicationsByCourseID")
 	}
 
 	return

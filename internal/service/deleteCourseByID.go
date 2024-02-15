@@ -16,6 +16,12 @@ func (s *Service) DeleteCourseByID(courseID, userID int) (err error) {
 		return
 	}
 
+	_, err = s.Repo.GetCourseByID(courseID)
+
+	if err != nil {
+		return errors.ErrBadRequest
+	}
+
 	err = s.Repo.DeleteCourseByID(courseID)
 
 	return

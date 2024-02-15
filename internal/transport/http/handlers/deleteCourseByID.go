@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"humoAcademy/pkg/errors"
 	"humoAcademy/pkg/response"
 	"net/http"
 	"strconv"
@@ -27,12 +28,18 @@ func (h *Handler) DeleteCourse(w http.ResponseWriter, r *http.Request) {
 		resp = response.BadRequest
 	}
 
-	err = h.svc.DeleteCourseByID(courseID, int(userID))
+	err = h.svc.DeleteCourseByID(courseID, userID)
 
 	if err != nil {
+		if err == errors.ErrBadRequest {
+			resp = response.BadRequest
+			return
+		} else if err == errors.ErrAccessDenied {
+			resp = response.AccessDenied
+			return
+		}
 		resp = response.InternalServer
 		return
 	}
-
 	resp = response.Success
 }

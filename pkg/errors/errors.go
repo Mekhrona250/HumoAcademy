@@ -8,6 +8,7 @@ var (
 	ErrAlreadyHasUser       = errors.New("у вас уже есть пользователь с таким номером телефона")
 	ErrWrongPassword        = errors.New("неправильный пароль")
 	ErrAccessDenied         = errors.New("доступ запрещен")
-	ErrAlreadyHasCourse		= errors.New("такой курс уже существует с таким айди")
-	
+	ErrAlreadyHasCourse     = errors.New("такой курс уже существует с таким айди")
+	ErrBadRequest           = errors.New("заполните до конца")
+	ErrTypePassword         = errors.New("введите пароль")
 )

@@ -31,7 +31,8 @@ func (repo *Repository) GetCourseByID(courseID int) (course models.Course, err e
 	AND
 		id = $1`, courseID)
 
-	err = row.Scan(&course.ID,
+	err = row.Scan(
+		&course.ID,
 		&course.Name,
 		&course.StartDate,
 		&course.Duration,

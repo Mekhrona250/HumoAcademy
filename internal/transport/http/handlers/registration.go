@@ -28,16 +28,16 @@ func (h *Handler) Registration(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	dateOfBirth, err := time.Parse("2006-01-02",temp.DateOfBirth)
+	dateOfBirth, err := time.Parse("2006-01-02", temp.DateOfBirth)
 	if err != nil {
 		resp = response.BadRequest
 	}
 
 	inputData = models.User{
-		PhoneNumber: temp.PhoneNumber, 
-		Password: temp.Password, 
-		Name: temp.Name, 
-		Surname: temp.Surname, 
+		PhoneNumber: temp.PhoneNumber,
+		Password:    temp.Password,
+		Name:        temp.Name,
+		Surname:     temp.Surname,
 		DateOfBirth: dateOfBirth,
 	}
 
@@ -47,6 +47,17 @@ func (h *Handler) Registration(w http.ResponseWriter, r *http.Request) {
 		if err == errors.ErrAlreadyHasUser {
 			resp.Code = 409
 			resp.Message = err.Error()
+			return
+		} else if err == errors.ErrBadRequest {
+			resp.Code = 400
+			resp.Message = err.Error()
+			return
+		}else if err == errors.ErrIncorrectPhoneNumber {
+			resp = response.BadRequest
+			return
+		} else if err == errors.ErrTypePassword {
+			resp.Code = 400
+			resp.Message = "Type the password"
 			return
 		}
 

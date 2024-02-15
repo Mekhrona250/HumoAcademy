@@ -1,34 +1,45 @@
 package handlers
 
-// import (
-// 	"humoAcademy/pkg/response"
-// 	"net/http"
-// 	"strconv"
-// 	"strings"
-// 	"time"
-// )
+import (
+	"fmt"
+	"humoAcademy/pkg/response"
+	"net/http"
+	"strconv"
+	"strings"
+	"time"
 
-// func (h *Handler) GetListOfUsersByCourseID(w http.ResponseWriter, r *http.Request) {
-// 	var resp response.Response
+	"github.com/gorilla/context"
+)
 
-// 	defer resp.WriteJSON(w)
+func (h *Handler) GetListOfUsersByCourseID(w http.ResponseWriter, r *http.Request) {
+	var resp response.Response
 
-// 	course := r.URL.Query().Get("courseID")
+	defer resp.WriteJSON(w)
 
-// 	courseID, err := strconv.Atoi(course)
-// 	if err != nil {
-// 		resp = response.BadRequest
-// 	}
+	course := r.URL.Query().Get("courseID")
 
-// 	applications, err := h.svc.GetListOfUsersByCourseID(courseID)
+	userID, ok := context.Get(r, "userID").(int)
 
-// 	if err != nil {
-// 		resp = response.InternalServer
-// 		return
-// 	}
+	if !ok {
+		resp = response.InternalServer
+		return
+	}
 
-// 	buf, _ := xlsx.WriteToBuffer()
-// 	http.ServeContent(w, r, "test.xlsx", time.Time{}, strings.NewReader(buf.String()))
-// 	resp = response.Success
+	courseID, err := strconv.Atoi(course)
+	if err != nil {
+		resp = response.BadRequest
+	}
 
-//}
+	xlsx, err := h.svc.GetListOfUsersByCourseID(userID, courseID)
+
+	if err != nil {
+		resp = response.InternalServer
+		return
+	}
+
+	buf, _ := xlsx.WriteToBuffer()
+	http.ServeContent(w, r, "list.xlsx", time.Time{}, strings.NewReader(buf.String()))
+	fmt.Println(buf)
+	resp = response.Success
+
+}

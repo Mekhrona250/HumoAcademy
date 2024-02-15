@@ -5,6 +5,7 @@ import (
 	"humoAcademy/internal/repository"
 	"humoAcademy/pkg/config"
 
+	"github.com/360EntSecGroup-Skylar/excelize"
 	"github.com/sirupsen/logrus"
 )
 
@@ -23,8 +24,8 @@ type ServiceInterface interface {
 	CourseRegister(userID, courseID int) (err error)
 	GetListOfCourses() (courses []models.Course, err error)
 	GetCourseByID(courseID int) (course models.Course, err error)
-	ChangeCourse(course models.Course, userID int, courseID int) (err error)
-	GetListOfUsersByCourseID(courseID int) (applications []models.Application, err error)
+	ChangeCourse(course models.Course, courseID int, userID int) (err error)
+	GetListOfUsersByCourseID(userID, courseID int) (xlsx *excelize.File, err error)
 }
 
 func NewService(repo repository.RepositoryInterface, config *config.Config, logger *logrus.Logger) ServiceInterface {

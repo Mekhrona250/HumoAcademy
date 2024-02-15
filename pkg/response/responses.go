@@ -18,7 +18,7 @@ var InternalServer = Response{
 var NotFound = Response{
 	Code:    404,
 	Message: "Not Found",
-}
+} 
 
 var Unauthorized = Response{
 	Code:    401,

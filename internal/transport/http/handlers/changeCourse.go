@@ -2,9 +2,10 @@ package handlers
 
 import (
 	"encoding/json"
+	"fmt"
 	"humoAcademy/internal/models"
+	"humoAcademy/pkg/errors"
 	"humoAcademy/pkg/response"
-	"log"
 	"net/http"
 	"strconv"
 	"time"
@@ -69,13 +70,20 @@ func (h *Handler) ChangeCourse(w http.ResponseWriter, r *http.Request) {
 		Language:            temp.Language,
 	}
 
-	err = h.svc.ChangeCourse(inputData, userID, courseID)
+	err = h.svc.ChangeCourse(inputData, courseID, userID)
 
 	if err != nil {
-		log.Println(err)
+		if err == errors.ErrBadRequest {
+			resp = response.BadRequest
+			return
+		} else if err == errors.ErrAccessDenied {
+			resp = response.AccessDenied
+			return
+		}
 		resp = response.InternalServer
 		return
 	}
 
+	fmt.Println(err)
 	resp = response.Success
 }

@@ -3,8 +3,8 @@ package handlers
 import (
 	"encoding/json"
 	"humoAcademy/internal/models"
+	"humoAcademy/pkg/errors"
 	"humoAcademy/pkg/response"
-	"log"
 	"net/http"
 	"time"
 
@@ -63,8 +63,13 @@ func (h *Handler) CreateCourse(w http.ResponseWriter, r *http.Request) {
 
 	err = h.svc.CreateCourse(inputData, userID)
 
-	if err != nil {
-		log.Println(err)
+	if err == errors.ErrBadRequest {
+		resp = response.BadRequest
+		return
+	} else if err == errors.ErrAccessDenied {
+		resp = response.AccessDenied
+		return
+	} else if err != nil {
 		resp = response.InternalServer
 		return
 	}
