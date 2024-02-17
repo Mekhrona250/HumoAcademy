@@ -29,25 +29,3 @@ func NewConfig() *Config {
 
 	return config
 }
-
-// func NewConfig() *Config {
-// 	var config Config
-
-// 	viper.SetConfigFile("../config.json")
-
-// 	err := viper.ReadInConfig()
-
-// 	if err != nil {
-// 		panic(err)
-// 	}
-
-// 	err = viper.Unmarshal(&config)
-// 	if err != nil {
-// 		panic(err)
-// 	}
-
-// 	fmt.Printf("%+v", config)
-
-// 	return &config
-// }
-// НАПОМНИТЬ ПОЧЕМУ НЕ РАБОТАЕТ

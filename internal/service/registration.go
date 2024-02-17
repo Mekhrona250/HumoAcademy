@@ -3,7 +3,6 @@ package service
 import (
 	"humoAcademy/internal/models"
 	"humoAcademy/pkg/errors"
-	"time"
 )
 
 func (s *Service) Registration(user models.User) (err error) {
@@ -21,7 +20,7 @@ func (s *Service) Registration(user models.User) (err error) {
 		return
 	}
 
-	if user.Name == "" || user.Surname == "" || user.DateOfBirth == time.Now() {
+	if user.Name == "" || user.Surname == "" || user.DateOfBirth.IsZero() {
 		err = errors.ErrBadRequest
 		return
 	}

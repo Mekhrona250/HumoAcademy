@@ -8,7 +8,7 @@ import (
 )
 
 func (s *Service) GetListOfUsersByCourseID(userID, courseID int) (xlsx *excelize.File, err error) {
-	
+
 	user, err := s.Repo.GetUserByID(userID)
 
 	if err != nil {
@@ -38,10 +38,6 @@ func (s *Service) GetListOfUsersByCourseID(userID, courseID int) (xlsx *excelize
 
 		if tempErr != nil {
 			err = errors.ErrDataNotFound
-		}
-
-		if user.RoleId != 1 {
-			err = errors.ErrAccessDenied
 		}
 
 		xlsx.SetCellValue("Sheet1", fmt.Sprintf("A%v", i+2), user.Name)

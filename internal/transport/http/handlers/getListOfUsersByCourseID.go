@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"fmt"
 	"humoAcademy/pkg/response"
 	"net/http"
 	"strconv"
@@ -14,32 +13,36 @@ import (
 func (h *Handler) GetListOfUsersByCourseID(w http.ResponseWriter, r *http.Request) {
 	var resp response.Response
 
-	defer resp.WriteJSON(w)
-
 	course := r.URL.Query().Get("courseID")
 
 	userID, ok := context.Get(r, "userID").(int)
 
 	if !ok {
 		resp = response.InternalServer
+		resp.WriteJSON(w)
 		return
 	}
 
 	courseID, err := strconv.Atoi(course)
 	if err != nil {
 		resp = response.BadRequest
+		resp.WriteJSON(w)
+		return
 	}
 
 	xlsx, err := h.svc.GetListOfUsersByCourseID(userID, courseID)
 
 	if err != nil {
 		resp = response.InternalServer
+		resp.WriteJSON(w)
 		return
 	}
 
-	buf, _ := xlsx.WriteToBuffer()
+	buf, err := xlsx.WriteToBuffer()
+	if err != nil {
+		resp = response.InternalServer
+		resp.WriteJSON(w)
+		return
+	}
 	http.ServeContent(w, r, "list.xlsx", time.Time{}, strings.NewReader(buf.String()))
-	fmt.Println(buf)
-	resp = response.Success
-
 }

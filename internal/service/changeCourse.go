@@ -21,13 +21,12 @@ func (s *Service) ChangeCourse(course models.Course, courseID int, userID int) (
 	if err != nil {
 		return err
 	}
-	
 
 	if course.Name != "" {
 		oldCourse.Name = course.Name
 	}
 
-	if course.StartDate.IsZero() {
+	if !course.StartDate.IsZero() {
 		oldCourse.StartDate = course.StartDate
 	}
 
@@ -43,7 +42,7 @@ func (s *Service) ChangeCourse(course models.Course, courseID int, userID int) (
 		oldCourse.AgeLimit = course.AgeLimit
 	}
 
-	if course.RegistrationEndDate.IsZero() {
+	if !course.RegistrationEndDate.IsZero() {
 		oldCourse.RegistrationEndDate = course.RegistrationEndDate
 	}
 
@@ -66,7 +65,6 @@ func (s *Service) ChangeCourse(course models.Course, courseID int, userID int) (
 	if course.Language != "" {
 		oldCourse.Language = course.Language
 	}
-
 
 	err = s.Repo.ChangeCourse(oldCourse, courseID)
 

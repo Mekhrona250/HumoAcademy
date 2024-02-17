@@ -22,7 +22,7 @@ func (s *Service) CreateCourse(course models.Course, userID int) (err error) {
 		return
 	}
 
-	if course.Duration < 1 || course.AgeLimit < 1 || course.Name == "" || course.StartDate.IsZero() || course.Schedule == "" || course.RegistrationEndDate.IsZero() || course.Address == "" || course.Mentor == "" {
+	if course.Duration < 1 || course.AgeLimit < 1 || course.Name == "" || course.StartDate.IsZero() || course.Schedule == "" || course.RegistrationEndDate.IsZero() {
 		err = errors.ErrBadRequest
 		return
 

@@ -20,6 +20,11 @@ func (s *Service) CourseRegister(userID, courseID int) (err error) {
 		return
 	}
 
+	if course.RegistrationEndDate.Unix() < time.Now().Unix() {
+		err = errors.ErrDataNotFound
+		return
+	}
+	
 	if user.DateOfBirth.AddDate(course.AgeLimit, 0, 0).Unix() > time.Now().Unix() {
 		err = errors.ErrAccessDenied
 		return

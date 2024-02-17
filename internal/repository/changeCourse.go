@@ -2,15 +2,13 @@ package repository
 
 import (
 	"context"
-	"fmt"
 	"humoAcademy/internal/models"
 
 	"github.com/sirupsen/logrus"
 )
 
 func (repo *Repository) ChangeCourse(course models.Course, courseID int) (err error) {
-	fmt.Println(course, courseID)
-	affect, err := repo.Conn.Exec(context.Background(), `
+	_, err = repo.Conn.Exec(context.Background(), `
 			UPDATE
 				course 
 			SET 
@@ -26,10 +24,6 @@ func (repo *Repository) ChangeCourse(course models.Course, courseID int) (err er
 			language = $10
 			WHERE 
 				id = $11`, course.Name, course.StartDate, course.Duration, course.Schedule, course.AgeLimit, course.RegistrationEndDate, course.Description, course.Mentor, course.Format, course.Language, courseID)
-
-	RowsAffected := affect.RowsAffected()
-
-	fmt.Println(RowsAffected)
 
 	if err != nil {
 		repo.Logger.WithFields(logrus.Fields{

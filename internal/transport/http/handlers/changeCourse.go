@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"encoding/json"
-	"fmt"
 	"humoAcademy/internal/models"
 	"humoAcademy/pkg/errors"
 	"humoAcademy/pkg/response"
@@ -84,6 +83,5 @@ func (h *Handler) ChangeCourse(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Println(err)
 	resp = response.Success
 }

@@ -27,8 +27,6 @@ func (repo *Repository) GetCourseByID(courseID int) (course models.Course, err e
 	FROM 
 		course 
 	WHERE 
-		registration_end_date > now() 
-	AND
 		id = $1`, courseID)
 
 	err = row.Scan(
