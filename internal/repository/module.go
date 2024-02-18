@@ -24,6 +24,8 @@ type RepositoryInterface interface {
 	GetCourseByID(courseID int) (course models.Course, err error)
 	ChangeCourse(course models.Course, courseID int) (err error)
 	GetAllApplicationsByCourseID(courseID int) (applications []models.Application, err error)
+	DeleteManyApplicationsByCourseID(courseID int) (err error)
+	ChangeUser(user models.User, userID int) (err error)
 }
 
 func NewRepository(conn *pgx.Conn, logger *logrus.Logger) RepositoryInterface {

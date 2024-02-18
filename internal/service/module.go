@@ -26,6 +26,7 @@ type ServiceInterface interface {
 	GetCourseByID(courseID int) (course models.Course, err error)
 	ChangeCourse(course models.Course, courseID int, userID int) (err error)
 	GetListOfUsersByCourseID(userID, courseID int) (xlsx *excelize.File, err error)
+	ChangeUser(user models.User, userID int) (err error)
 }
 
 func NewService(repo repository.RepositoryInterface, config *config.Config, logger *logrus.Logger) ServiceInterface {

@@ -37,6 +37,9 @@ func InitRouter(handlers *handlers.Handler, mw middleware.MiddlewareInterface) *
 	privateRouter.HandleFunc("/api/changeCourse", handlers.ChangeCourse).Methods("POST")
 
 	privateRouter.Use(mw.JWT)
+	privateRouter.HandleFunc("/api/changeUser", handlers.ChangeUser).Methods("POST")
+
+	privateRouter.Use(mw.JWT)
 	privateRouter.HandleFunc("/api/getListOfUsersByCourseID", handlers.GetListOfUsersByCourseID).Methods("GET")
 
 	return router

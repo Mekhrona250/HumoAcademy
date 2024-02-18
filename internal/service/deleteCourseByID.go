@@ -22,6 +22,12 @@ func (s *Service) DeleteCourseByID(courseID, userID int) (err error) {
 		return errors.ErrBadRequest
 	}
 
+	err = s.Repo.DeleteManyApplicationsByCourseID(courseID)
+
+	if err != nil {
+		return errors.ErrBadRequest 
+	}
+
 	err = s.Repo.DeleteCourseByID(courseID)
 
 	return
